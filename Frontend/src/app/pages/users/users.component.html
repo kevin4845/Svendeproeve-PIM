@@ -1,0 +1,26 @@
+<p-table [value]="[]" [tableStyle]="{'min-width': '60rem'}">
+  <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+          Users
+          <p-button (onClick)="openAddUserModal()" label="Add User" icon="pi pi-plus" />
+      </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Reviews</th>
+          <th>Status</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+      <tr>
+          <td>{{product.name}}</td>
+          <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+          <td>{{product.price}}</td>
+          <td>{{product.category}}</td>
+      </tr>
+  </ng-template>
+</p-table>

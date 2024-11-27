@@ -1,0 +1,24 @@
+<p-table *ngIf="productFamilies$ | async" [value]="productFamilies" [tableStyle]="{'min-width': '60rem'}">
+  <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+          Families
+          <p-button (onClick)="openAddFamilyModal()" label="Add Family" icon="pi pi-plus" />
+      </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Products</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-productFamily>
+      <tr (click)="openProductFamilyModal(productFamily)" class="cursor-pointer hover:bg-gray-100">
+          <td>{{productFamily.name}}</td>
+          <td>{{productFamily.description}}</td>
+          <td><p-image [preview]="true" height="200px" *ngIf="productFamily.media[0] != undefined" [src]="productFamily.media[0].original_url" alt=""/></td>
+          <td>{{productFamily.category}}</td>
+      </tr>
+  </ng-template>
+</p-table>
