@@ -1,1 +1,40 @@
-<p>add-user-modal works!</p>
+<div class="flex flex-column">
+  <form class="p-2" action="" [formGroup]="form">
+    <div class="grid">
+      <div class="col-6">
+        <label for="name" class="block text-900 font-medium mb-2 text-sm">Name</label>
+        <input [(ngModel)]="name" formControlName="name" id="email" type="text" placeholder="Name" pInputText class="w-full" />
+        <div class="errors text-red-500 text-sm">
+          <small *ngIf="form.controls['name'].errors?.['required'] && form.controls['name'].dirty">A name is required</small>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="name" class="block text-900 font-medium mb-2 text-sm">Email</label>
+        <input [(ngModel)]="email" formControlName="email" id="email" type="text" placeholder="Email" pInputText class="w-full" />
+        <div class="errors text-red-500 text-sm">
+          <small *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].dirty">An email is required</small>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="role" class="block text-900 font-medium mb-2 text-sm">Role</label>
+        <p-dropdown
+          appendTo="body"
+          formControlName="role_id"
+          *ngIf="roles$ | async"
+          [options]="roles"
+          styleClass="w-full"
+          optionLabel="name"
+          optionValue="id"
+          (onChange)="onRoleChange($event)"
+          [(ngModel)]="role_id"
+          placeholder="Select a Role" />
+      </div>
+
+    </div>
+  </form>
+  <div class="flex align-self-end">
+    <button (click)="addUser()" pButton label="Add User" pRipple></button>
+  </div>
+</div>

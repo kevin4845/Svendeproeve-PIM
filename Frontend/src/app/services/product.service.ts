@@ -18,8 +18,8 @@ export class ProductService {
     return this.http.post(`${environment.apiUrl}products`, product);
   }
 
-  updateProduct(product: Product) {
-    return this.http.put(`${environment.apiUrl}products/${product.id}`, product);
+  updateProduct(form: FormData, productId: number) {
+    return this.http.post(`${environment.apiUrl}products/${productId}`, form);
   }
 
   deleteProduct(productId: number) {

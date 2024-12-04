@@ -13,7 +13,7 @@ class VariantController extends Controller
      */
     public function index()
     {
-        $data = Variant::all();
+        $data = Variant::with(['media', 'product'])->get();
         $headers = ['Content-Type' => 'application/json'];
         return response()->json($data, 200, $headers);
     }
@@ -23,7 +23,10 @@ class VariantController extends Controller
      */
     public function store(StoreVariantRequest $request)
     {
-        Variant::create($request->all());
+        $variant = Variant::create($request->all());
+        if ($request->has('image') && $request->get('image') != 'undefined') {
+            $variant->addMediaFromRequest('image')->toMediaCollection('image');
+        }
         return response()->json(['message' => 'Product family created'], 201);
     }
 
@@ -42,7 +45,12 @@ class VariantController extends Controller
     public function update(UpdateVariantRequest $request, Variant $variant)
     {
         $variant->update($request->all());
-        return response()->json(['message' => 'Product family updated'], 200);
+
+        if ($request->has('image') && $request->get('image') != 'undefined') {
+            $variant->clearMediaCollection('image');
+            $variant->addMediaFromRequest('image')->toMediaCollection('image');
+        }
+        return response()->json(['message' => 'Variant updated'], 200);
     }
 
     /**

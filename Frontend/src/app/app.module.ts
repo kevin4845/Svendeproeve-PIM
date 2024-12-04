@@ -39,6 +39,11 @@ import { ImageModule } from 'primeng/image';
 import { ProductFamilyModalComponent } from './modals/product-family-modal/product-family-modal.component';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 import { corsInterceptor } from './interceptors/cors.interceptor';
+import { ProductModalComponent } from './modals/product-modal/product-modal.component';
+import { VariantModalComponent } from './modals/variant-modal/variant-modal.component';
+import { UserComponent } from './user/user.component';
+import { SetPasswordComponent } from './pages/set-password/set-password.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +61,12 @@ import { corsInterceptor } from './interceptors/cors.interceptor';
     ProductFamiliesComponent,
     AddProductFamilyModalComponent,
     AddVariantModalComponent,
-    ProductFamilyModalComponent
+    ProductFamilyModalComponent,
+    ProductModalComponent,
+    VariantModalComponent,
+    UserComponent,
+    SetPasswordComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

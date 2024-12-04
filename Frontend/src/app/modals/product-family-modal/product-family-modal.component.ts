@@ -35,18 +35,20 @@ export class ProductFamilyModalComponent {
     this.formData.append('name', this.name);
     this.formData.append('description', this.description);
     this.formData.append('image', this.files[0]);
+    this.formData.append('_method', 'PUT')
     this.productFamilyService.updateProductFamily(this.formData, this.productFamily.id!).subscribe((res: any) => {
-      console.log(res);
+      this.dialogRef.close();
+    });
+  }
+
+  deleteFamily() {
+    this.productFamilyService.deleteProductFamily(this.productFamily.id!).subscribe((res: any) => {
       this.dialogRef.close();
     });
   }
 
   onSelect(event: any) {
     this.files.push(...event.files);
-  }
-
-  onRemove(event: any) {
-
   }
 
 }

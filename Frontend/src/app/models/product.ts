@@ -6,4 +6,5 @@ export interface Product {
     description: string;
     base_price: number;
     product_family?: ProductFamily;
+    variants?: any[];
 }

@@ -5,6 +5,8 @@ import { environment } from '../../../environments/environment';
 import { Observable, tap } from 'rxjs';
 import { ProductFamily } from '../../models/product-family';
 import { ProductFamilyService } from '../../services/product-family.service';
+import { ProductService } from '../../services/product.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-add-product-modal',
@@ -16,7 +18,9 @@ export class AddProductModalComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private productFamilyService: ProductFamilyService
+    private productFamilyService: ProductFamilyService,
+    private productService: ProductService,
+    private dialogRef: DynamicDialogRef
   ) { }
 
   form: any = this.fb.group({
@@ -34,12 +38,12 @@ export class AddProductModalComponent {
   productFamilies: ProductFamily[] = [];
 
   addProduct() {
-    this.http.post(`${environment.apiUrl}products`, {
+    this.productService.addProduct({
       name: this.name,
       description: this.description,
-      base_price: this.base_price
+      base_price: this.base_price,
     }).subscribe((res: any) => {
-      console.log(res);
+      this.dialogRef.close();
     });
   }
 

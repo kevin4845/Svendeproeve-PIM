@@ -1,4 +1,4 @@
-<p-table [value]="[]" [tableStyle]="{'min-width': '60rem'}">
+<p-table *ngIf="users$ | async" [value]="users" [tableStyle]="{'min-width': '60rem'}">
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
           Users
@@ -7,20 +7,18 @@
   </ng-template>
   <ng-template pTemplate="header">
       <tr>
+          <th>Avatar</th>
           <th>Name</th>
-          <th>Image</th>
-          <th>Price</th>
-          <th>Category</th>
-          <th>Reviews</th>
-          <th>Status</th>
+          <th>Email</th>
+          <th>Role</th>
       </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-product>
+  <ng-template pTemplate="body" let-user>
       <tr>
-          <td>{{product.name}}</td>
-          <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-          <td>{{product.price}}</td>
-          <td>{{product.category}}</td>
+          <td><img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Caleb" class="mr-3 lg:mr-0" style="width: 32px; height: 32px"/></td>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.roles[0].name}}</td>
       </tr>
   </ng-template>
 </p-table>

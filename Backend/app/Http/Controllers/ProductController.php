@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
+        $data = Product::with(['media', 'variants', 'productFamily'])->get();
         $headers = ['Content-Type' => 'application/json'];
         return response()->json($data, 200, $headers);
     }
@@ -42,7 +42,17 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->all());
-        return response()->json(['message' => 'Product family updated'], 200);
+
+        if (!$request->has('product_family_id')) {
+            $product->product_family_id = null;
+            $product->save();
+        }
+
+        if ($request->has('image') && $request->get('image') != 'undefined') {
+            $product->clearMediaCollection('image');
+            $product->addMediaFromRequest('image')->toMediaCollection('image');
+        }
+        return response()->json(['message' => 'Product updated'], 200);
     }
 
     /**

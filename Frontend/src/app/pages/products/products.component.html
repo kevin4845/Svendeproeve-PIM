@@ -1,4 +1,4 @@
-<p-table *ngIf="products$ | async" [value]="products" [tableStyle]="{'min-width': '60rem'}">
+<p-table *ngIf="products$ | async" [value]="products" [tableStyle]="{'min-width': '60rem'}" selectionMode="single">
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
           Products
@@ -9,18 +9,20 @@
       <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Images</th>
+          <th>Image</th>
           <th>Price</th>
           <th>Product Family</th>
           <th>Variants</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product>
-      <tr>
+      <tr (click)="openProductModal(product)" class="cursor-pointer hover:bg-gray-100">
           <td>{{product.name}}</td>
           <td>{{product.description}}</td>
-          <td>{{product.price | currency:'USD'}}</td>
-          <td>{{product.category}}</td>
+          <td><p-image (click)="$event.stopPropagation()" styleClass="z-10" [preview]="true" height="200px" *ngIf="product.media[0] != undefined" [src]="product.media[0].original_url" alt=""/></td>
+          <td>{{product.base_price}}</td>
+          <td>{{ product.product_family != null ? product.product_family.name : '' }}</td>
+          <td><span *ngFor="let variant of product.variants">{{variant.name}} </span></td>
       </tr>
   </ng-template>
 </p-table>

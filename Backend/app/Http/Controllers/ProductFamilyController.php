@@ -13,7 +13,7 @@ class ProductFamilyController extends Controller
      */
     public function index()
     {
-        $data = ProductFamily::with('media')->get();
+        $data = ProductFamily::with('media', 'products')->get();
         $headers = ['Content-Type' => 'application/json'];
         return response()->json($data, 200, $headers);
     }
@@ -44,8 +44,7 @@ class ProductFamilyController extends Controller
      */
     public function update(UpdateProductFamilyRequest $request, ProductFamily $productFamily)
     {
-        $productFamily->name = $request->get('name');
-        $productFamily->save();
+        $productFamily->update($request->all());
 
         if ($request->has('image') && $request->get('image') != 'undefined') {
             $productFamily->clearMediaCollection('image');

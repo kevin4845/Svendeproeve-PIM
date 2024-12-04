@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Variant extends Model
+class Variant extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\VariantFactory> */
     use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'name',
         'description',
-        'price',
+        'extra_price',
+        'product_id',
     ];
 
     public function product()

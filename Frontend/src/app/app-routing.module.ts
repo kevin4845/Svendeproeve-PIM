@@ -12,9 +12,13 @@ import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { VariantsComponent } from './pages/variants/variants.component';
 import { ProductFamiliesComponent } from './pages/product-families/product-families.component';
+import { SetPasswordComponent } from './pages/set-password/set-password.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [authGuard] },
+  { path: 'set-password', component: SetPasswordComponent, canActivate: [guestGuard] },
   { path: 'ecatalog', component: ECatalogComponent },
   { path: '', component: AppLayoutComponent, canActivate: [authGuard], children: [
     { path: '', component: HomeComponent },

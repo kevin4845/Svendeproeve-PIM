@@ -10,7 +10,7 @@
       </div>
 
       <div class="col-6">
-        <label for="name" class="block text-900 font-medium mb-2 text-sm">Base Price</label>
+        <label for="name" class="block text-900 font-medium mb-2 text-sm">Description</label>
         <input [(ngModel)]="description" formControlName="description" id="description" type="text" placeholder="Description" pInputText class="w-full" />
         <div class="errors text-red-500 text-sm">
           <small *ngIf="form.controls['description'].errors?.['required'] && form.controls['description'].dirty">A description is required</small>

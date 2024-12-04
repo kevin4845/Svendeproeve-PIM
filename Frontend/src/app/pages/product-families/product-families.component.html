@@ -18,7 +18,7 @@
           <td>{{productFamily.name}}</td>
           <td>{{productFamily.description}}</td>
           <td><p-image [preview]="true" height="200px" *ngIf="productFamily.media[0] != undefined" [src]="productFamily.media[0].original_url" alt=""/></td>
-          <td>{{productFamily.category}}</td>
+          <td><span *ngFor="let product of productFamily.products">{{product.name}} </span></td>
       </tr>
   </ng-template>
 </p-table>

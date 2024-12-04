@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -64,5 +67,25 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60
         ]);
+    }
+
+    public function setPassword(Request $request) {
+        if ($request->has('password') && $request->has('repeat_password')) {
+            if ($request->get('password') == $request->get('repeat_password')) {
+                $hashedPassword = Hash::make($request->get('password'));
+                //return base64_decode($request->get('token'));
+                $user = User::where('email', base64_decode($request->get('token')))->first();
+                $user->password = $hashedPassword;
+                $user->save();
+
+
+                if (! $token = auth('api')->attempt(['email' => $user->email, 'password' => $request->get('password')])) {
+                    return response()->json(['error' => 'Unauthorized'], 401);
+                }
+
+                return $this->respondWithToken($token);
+
+            }
+        }
     }
 }

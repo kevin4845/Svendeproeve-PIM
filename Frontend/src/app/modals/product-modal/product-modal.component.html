@@ -1,1 +1,62 @@
-<p>product-modal works!</p>
+<div class="flex flex-column">
+  <form class="p-2" action="" [formGroup]="form">
+    <div class="grid">
+      <div class="col-6">
+        <label for="name" class="block text-900 font-medium mb-2 text-sm">Name</label>
+        <input [(ngModel)]="name" formControlName="name" id="email" type="text" placeholder="Name" pInputText class="w-full" />
+        <div class="errors text-red-500 text-sm">
+          <small *ngIf="form.controls['name'].errors?.['required'] && form.controls['name'].dirty">A name is required</small>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="name" class="block text-900 font-medium mb-2 text-sm">Description</label>
+        <input [(ngModel)]="description" formControlName="description" id="description" type="text" placeholder="Description" pInputText class="w-full" />
+        <div class="errors text-red-500 text-sm">
+          <small *ngIf="form.controls['description'].errors?.['required'] && form.controls['description'].dirty">A description is required</small>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="base_price" class="block text-900 font-medium mb-2 text-sm">Base Price</label>
+        <input [(ngModel)]="base_price" formControlName="base_price" id="base_price" type="number" placeholder="Base Price" pInputText class="w-full" />
+        <div class="errors text-red-500 text-sm">
+          <small *ngIf="form.controls['base_price'].errors?.['required'] && form.controls['base_price'].dirty">A base price is required</small>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="product_family" class="block text-900 font-medium mb-2 text-sm">Product Family</label>
+        <p-dropdown
+          formControlName="product_family_id"
+          *ngIf="productFamilies$ | async"
+          [options]="productFamilies"
+          styleClass="w-full"
+          optionLabel="name"
+          optionValue="id"
+          [showClear]="true"
+          (onChange)="onFamilyChange($event)"
+          [(ngModel)]="product_family_id"
+          placeholder="Select a Family" />
+      </div>
+
+      <div class="col-6">
+        <p-fileUpload
+          mode="basic"
+          [multiple]="false"
+          chooseLabel="Choose"
+          chooseIcon="pi pi-upload"
+          auto="true"
+          (onSelect)="onSelect($event)"
+          accept="image/*"
+          maxFileSize="10000000"
+           />
+      </div>
+
+    </div>
+  </form>
+  <div class="flex align-self-end">
+    <button severity="danger" class="mx-2" (click)="deleteProduct()" icon="pi pi-trash" pButton label="Delete Product" pRipple></button>
+    <button class="mx-2" (click)="updateProduct()" pButton label="Update Product" pRipple></button>
+  </div>
+</div>

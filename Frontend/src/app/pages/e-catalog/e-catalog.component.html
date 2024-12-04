@@ -2,16 +2,26 @@
 
 </div>
 
-<div class="grid grid-nogutter">
+<div *ngIf="(products$ | async)" class="grid grid-nogutter">
 
-  <div class="col-2 p-2">
+  <div *ngFor="let product of products" class="col-2 p-2">
     <div class="flex flex-column bg-gray-200 p-2 justify-content-center hover:bg-gray-300 cursor-pointer">
-      <img class="h-15rem" src="https://dansk.dk/img/1500/1500/resize/h/v/hvid_tee__web_1.png" alt="">
+      <div *ngIf="product.media != undefined && product.media[0] != undefined">
+        <img class="h-15rem" src="{{product.media != [] ? product.media[0].original_url : ''}}" alt="">
+      </div>
       <div class="info-txt">
-        <div><b>Title</b>: Hvid T-Shirt</div>
-        <div><b>Price</b>: </div>
-        <div><b>Category</b>: T-Shirts</div>
-        <div><b>Variants</b>: Xl, XXL, 2XL</div>
+        <div><b>Vare</b>: {{product.name}}</div>
+        <div><b>Price</b>: {{product.base_price}} DKK</div>
+        <div>
+          <b>Family</b>:
+          <span *ngIf="product.product_family != null">{{product.product_family.name}}</span>
+        </div>
+        <div>
+          <b>Variants</b>:
+          <div *ngIf="product.variants != []">
+            <span *ngFor="let variant of product.variants">{{variant.name}} </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

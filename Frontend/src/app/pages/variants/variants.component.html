@@ -1,25 +1,26 @@
-<p-table [value]="[]" [tableStyle]="{'min-width': '60rem'}">
+<p-table *ngIf="variants$ | async" [value]="variants" [tableStyle]="{'min-width': '60rem'}">
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
           Variants
-          <p-button (onClick)="openAddVariantModal()" label="Add Product" icon="pi pi-plus" />
+          <p-button (onClick)="openAddVariantModal()" label="Add Variant" icon="pi pi-plus" />
       </div>
   </ng-template>
   <ng-template pTemplate="header">
       <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Images</th>
+          <th>Image</th>
           <th>Extra Price</th>
-          <th>Full Price</th>
+          <th>Product</th>
       </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-product>
-      <tr>
-          <td>{{product.name}}</td>
-          <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-          <td>{{product.price | currency:'USD'}}</td>
-          <td>{{product.category}}</td>
+  <ng-template pTemplate="body" let-variant>
+      <tr (click)="openVariantModal(variant)" class="cursor-pointer hover:bg-gray-100">
+          <td>{{variant.name}}</td>
+          <td>{{variant.description}}</td>
+          <td><p-image [preview]="true" height="200px" *ngIf="variant.media[0] != undefined" [src]="variant.media[0].original_url" alt=""/></td>
+          <td>{{variant.extra_price}}</td>
+          <td>{{ variant.product.name }}</td>
       </tr>
   </ng-template>
 </p-table>

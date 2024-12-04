@@ -1,9 +1,9 @@
-<div class="grid m-0 h-full">
+<div *ngIf="totals$ | async" class="grid m-0 h-full">
   <div class="p-2 col-3">
     <div class="bg-gray-200 h-full">
       <div class="header p-2">Total Products</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <h1 class="text-7xl">{{totals.totalProducts}}</h1>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
     <div class="bg-gray-200 h-full">
       <div class="header p-2">Total Variants</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <h1 class="text-7xl">{{totals.totalVariants}}</h1>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
     <div class="bg-gray-200 h-full">
       <div class="header p-2">Total Product Families</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <h1 class="text-7xl">{{totals.totalProdutFamilies}}</h1>
       </div>
     </div>
   </div>
@@ -27,23 +27,23 @@
     <div class="bg-gray-200 h-full">
       <div class="header p-2">Total Users</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <h1 class="text-7xl">{{totals.users}}</h1>
       </div>
     </div>
   </div>
   <div class="p-2 col-6">
     <div class="bg-gray-200 h-full">
-      <div class="header p-2">Test</div>
+      <div class="header p-2">Pie Chart</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions" />
       </div>
     </div>
   </div>
   <div class="p-2 col-6">
     <div class="bg-gray-200 h-full">
-      <div class="header p-2">Test</div>
+      <div class="header p-2">Bar Chart</div>
       <div class="h-full flex align-items-center justify-content-center">
-        Test Content
+        <p-chart class="h-full w-full" type="bar" [data]="barChartData" [options]="barChartOptions" />
       </div>
     </div>
   </div>

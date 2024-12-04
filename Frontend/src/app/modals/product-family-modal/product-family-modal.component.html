@@ -33,6 +33,7 @@
     </div>
   </form>
   <div class="flex align-self-end">
-    <button (click)="updateFamily()" pButton label="Update Family" pRipple></button>
+    <button severity="danger" class="mx-2" (click)="deleteFamily()" icon="pi pi-trash" pButton label="Delete Family" pRipple></button>
+    <button class="mx-2" (click)="updateFamily()" pButton label="Update Family" pRipple></button>
   </div>
 </div>

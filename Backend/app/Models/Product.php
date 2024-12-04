@@ -17,6 +17,7 @@ class Product extends Model implements HasMedia
         'name',
         'description',
         'base_price',
+        'product_family_id'
     ];
 
     public function variants()

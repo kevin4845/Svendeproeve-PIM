@@ -2,47 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductFamily;
+use App\Models\User;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 
 class StatisticController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+
+    public function getTotals() {
+        $totalProducts = Product::count();
+        $totalVariants = Variant::count();
+        $totalProdutFamilies = ProductFamily::count();
+        $users = User::count();
+        return response()->json([
+            'totalProducts' => $totalProducts,
+            'totalVariants' => $totalVariants,
+            'totalProdutFamilies' => $totalProdutFamilies,
+            'users' => $users
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function getTotalProducts() {
+    $totalProducts = Product::count();
+    return response()->json(['totalProducts' => $totalProducts]);
+   }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+   public function getTotalVariants() {
+    $totalVariants = Variant::count();
+    return response()->json(['totalVariants' => $totalVariants]);
+   }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+   public function getTotalProdutFamilies() {
+    $totalProdutFamilies = ProductFamily::count();
+    return response()->json(['totalProdutFamilies' => $totalProdutFamilies]);
+   }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+   public function getUsers() {
+    $users = User::count();
+    return response()->json(['users' => $users]);
+   }
+
+
 }
