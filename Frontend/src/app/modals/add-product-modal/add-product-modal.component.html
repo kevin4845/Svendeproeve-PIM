@@ -27,24 +27,33 @@
 
       <div class="col-6">
         <label for="product_family" class="block text-900 font-medium mb-2 text-sm">Product Family</label>
-        <p-dropdown
+
+          <p-dropdown
+          formControlName="product_family_id"
           *ngIf="productFamilies$ | async"
           [options]="productFamilies"
           styleClass="w-full"
           optionLabel="name"
-          [(ngModel)]="product_family"
-          placeholder="Select a Family" />
+          optionValue="id"
+          [showClear]="true"
+          (onChange)="onProductFamilyChange($event)"
+          [(ngModel)]="product_family_id"
+          placeholder="Select a Product" />
+
+
       </div>
 
       <div class="col-6">
         <p-fileUpload
           mode="basic"
+          [multiple]="false"
           chooseLabel="Choose"
           chooseIcon="pi pi-upload"
-          name="demo[]"
-          url="https://www.primefaces.org/cdn/api/upload.php"
+          auto="true"
+          (onSelect)="onSelect($event)"
+          (onRemove)="onRemove($event)"
           accept="image/*"
-          maxFileSize="1000000"
+          maxFileSize="10000000"
            />
       </div>
 

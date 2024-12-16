@@ -32,17 +32,24 @@ export class AddProductModalComponent {
   name: string = '';
   description: string = '';
   base_price: number = 0;
-  product_family?: ProductFamily;
+  product_family_id: number = 0;
+
+  files: any[] = [];
 
   productFamilies$: Observable<ProductFamily[]> = this.getProductFamilies();
   productFamilies: ProductFamily[] = [];
 
+  formData: FormData = new FormData();
+
   addProduct() {
-    this.productService.addProduct({
-      name: this.name,
-      description: this.description,
-      base_price: this.base_price,
-    }).subscribe((res: any) => {
+
+    this.formData.set('name', this.name);
+    this.formData.set('description', this.description);
+    this.formData.set('base_price', this.base_price.toString());
+    this.formData.set('product_family_id', this.product_family_id.toString());
+    this.formData.set('image', this.files[0]);
+    this.productService.addProduct(this.formData).subscribe((res: any) => {
+      console.log(res);
       this.dialogRef.close();
     });
   }
@@ -51,6 +58,18 @@ export class AddProductModalComponent {
     return this.productFamilies$ = this.productFamilyService.getProductFamilies().pipe(tap(res => {
       this.productFamilies = res;
     }));
+  }
+
+  onProductFamilyChange(event: any) {
+    this.product_family_id = event.value;
+  }
+
+  onSelect(event: any) {
+    this.files.push(...event.files);
+  }
+
+  onRemove(event: any) {
+
   }
 
 }

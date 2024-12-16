@@ -23,7 +23,11 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->all());
+        $product = Product::create($request->all());
+        if ($request->has('image') && $request->get('image') != 'undefined') {
+            $product->clearMediaCollection('image');
+            $product->addMediaFromRequest('image')->toMediaCollection('image');
+        }
         return response()->json(['message' => 'Product family created'], 201);
     }
 
@@ -41,6 +45,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        dd($request->all());;
         $product->update($request->all());
 
         if (!$request->has('product_family_id')) {

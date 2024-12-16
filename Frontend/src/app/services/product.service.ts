@@ -14,12 +14,12 @@ export class ProductService {
     return this.http.get<Product[]>(`${environment.apiUrl}products`);
   }
 
-  addProduct(product: Product) {
-    return this.http.post(`${environment.apiUrl}products`, product);
+  addProduct(form: FormData) {
+    return this.http.post(`${environment.apiUrl}products`, form);
   }
 
   updateProduct(form: FormData, productId: number) {
-    return this.http.post(`${environment.apiUrl}products/${productId}`, form);
+    return this.http.put(`${environment.apiUrl}products/${productId}`, form);
   }
 
   deleteProduct(productId: number) {
